@@ -1,0 +1,24 @@
+services:
+
+  ms_data_mapping_processor:
+    image: engineeringmethodsag/ms-data-mapping-processor:latest
+    container_name: fluid40-data-mapping-processor
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "aasreg.basyx.localhost:host-gateway"
+      - "smreg.basyx.localhost:host-gateway"
+      - "aasenv.basyx.localhost:host-gateway"
+    ports:
+      - "3088:3088"
+    environment:
+      APP_HOST: ${APP_HOST}
+      APP_PORT: ${APP_PORT}
+      CONFIG_FILE_NAME: ${CONFIG_FILE_NAME}
+    volumes:
+      - ./configuration:/app/configuration:ro
+    networks:
+      - fluid40-workshop-connectivity
+
+networks:
+  fluid40-workshop-connectivity:
+    external: true
