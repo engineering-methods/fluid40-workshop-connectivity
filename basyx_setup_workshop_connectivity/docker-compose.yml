@@ -1,0 +1,112 @@
+---
+services:
+
+  aas-registry:
+    image: eclipsebasyx/aas-registry-log-mem:$BASYX_VERSION
+    container_name: fluid40-aas-registry
+    environment:
+      VIRTUAL_HOST: aasreg.basyx.localhost
+      VIRTUAL_PORT: "8080"
+      SERVER_SERVLET_CONTEXT_PATH: /
+      BASYX_CORS_ALLOWED_ORIGINS: "*"
+      BASYX_CORS_ALLOWED_METHODS: GET,POST,PATCH,DELETE,PUT,OPTIONS,HEAD
+      BASYX_FEATURE_AUTHORIZATION_ENABLED: false
+    restart: always
+    ports:
+      - "8076:8080"
+    networks:
+      -  fluid40-workshop-connectivity
+
+  sm-registry:
+    image: eclipsebasyx/submodel-registry-log-mem:$BASYX_VERSION
+    container_name: fluid40-sm-registry
+    extra_hosts:
+      - "keycloak.basyx.localhost:host-gateway"
+    environment:
+      VIRTUAL_HOST: smreg.basyx.localhost
+      VIRTUAL_PORT: "8080"
+      SERVER_SERVLET_CONTEXT_PATH: /
+      BASYX_CORS_ALLOWED_ORIGINS: "*"
+      BASYX_CORS_ALLOWED_METHODS: GET,POST,PATCH,DELETE,PUT,OPTIONS,HEAD
+      BASYX_FEATURE_AUTHORIZATION_ENABLED: false
+    restart: always
+    ports:
+      - "8077:8080"
+    networks:
+      -  fluid40-workshop-connectivity
+
+  aas-discovery:
+    image: eclipsebasyx/aas-discovery:$BASYX_VERSION
+    container_name: fluid40-aas-discovery
+    environment:
+      VIRTUAL_HOST: discovery.basyx.localhost
+      VIRTUAL_PORT: "8081"
+    volumes:
+      - ./basyx/aas-discovery.properties:/application/application.properties
+    ports:
+      - "8084:8081"
+    restart: always
+    networks:
+      -  fluid40-workshop-connectivity
+
+  aas-env:
+    image: eclipsebasyx/aas-environment:$BASYX_VERSION
+    container_name: fluid40-aas-server
+    ports:
+      - "8081:8081"
+    environment:
+      VIRTUAL_HOST: aasenv.basyx.localhost
+      VIRTUAL_PORT: "8081"
+    volumes:
+      - ./aas:/application/aas
+      - ./basyx/aas-env.properties:/application/application.properties
+    depends_on:
+      aas-registry:
+        condition: service_healthy
+      sm-registry:
+        condition: service_healthy
+    networks:
+      -  fluid40-workshop-connectivity
+
+  aas-web-ui:
+    image: eclipsebasyx/aas-gui:$AAS_WEBUI_VERSION
+    container_name: fluid40-aas-web-ui
+    ports:
+      - "8078:3000"
+    environment:
+      VIRTUAL_HOST: aasgui.basyx.localhost
+      VIRTUAL_PORT: "3000"
+      AAS_REGISTRY_PATH: http://aasreg.basyx.localhost/shell-descriptors
+      SUBMODEL_REGISTRY_PATH: http://smreg.basyx.localhost/submodel-descriptors
+      AAS_REPO_PATH: http://aasenv.basyx.localhost/shells
+      SUBMODEL_REPO_PATH: http://aasenv.basyx.localhost/submodels
+      CD_REPO_PATH: http://aasenv.basyx.localhost/concept-descriptions
+      AAS_DISCOVERY_PATH: http://discovery.basyx.localhost/lookup/shells
+      PRIMARY_COLOR: "#00A0C7"
+      LOGO_LIGHT_PATH: fluid40_light.png
+      LOGO_DARK_PATH: fluid40_dark.png
+    volumes:
+      - ./logo:/usr/src/app/dist/Logo
+    depends_on:
+      aas-env:
+        condition: service_healthy
+    networks:
+      -  fluid40-workshop-connectivity
+
+  # nginx reverse proxy to support dns lookup
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy:1.6.0-alpine
+    container_name: fluid40-nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      DEFAULT_HOST: aasgui.basyx.localhost
+    networks:
+      -  fluid40-workshop-connectivity
+
+networks:
+   fluid40-workshop-connectivity:
+    external: true
