@@ -1,0 +1,13 @@
+services:
+
+  asset_connector:
+    image: engineeringmethodsag/fluid-asset-connector-python:latest
+    container_name: fluid40-asset-connector
+    ports:
+      - 8000:8000
+    networks:
+      - fluid40-workshop-connectivity
+
+networks:
+  fluid40-workshop-connectivity:
+    external: true

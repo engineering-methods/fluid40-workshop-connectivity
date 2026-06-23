@@ -14,3 +14,6 @@ Info: Keine vorgeschaltete Security Layer -> Keine Authentifizierung notwendig
 | SM Registry | http://smreg.basyx.localhost |
 | Discovery | http://discovery.basyx.localhost |
 
+# Asset Connector
+
+Swagger-API: http://localhost:8000/docs
