@@ -73,3 +73,23 @@ Response:
 Swagger-API: http://localhost:3088/docs
 
 Game starten, damit die Daten generiert werden und der Asset-Connector sich verbindet
+
+# Influx V2 DB
+
+Docker Volume erzeugen: `docker volume create fluid40-workshop-connectivity-influxv2-data` (sonst ist der Port nicht sichtbar und Influx auch nicht über localhost erreichbar)
+
+Zugang unter http://localhost:8031/
+Standard-Zugang aus compose.yml:
+
+DOCKER_INFLUXDB_INIT_USERNAME: admin
+DOCKER_INFLUXDB_INIT_PASSWORD: fluid40secure!
+
+## API-Token erzeugen 
+Alternative: Admin-Token aus compose-File benutzen
+
+Name überlegen (nur für Lesbarkeit in Influx UI)
+Option "Custom API Token" wählen mit folgenden Optionen:
+- read + write für den angegebenen Bucket aus Compose.yml (Default: fluid40-bucket)
+- read für "all other resources"
+
+**wichtig: API Token kopieren und zwischenspeichern!**

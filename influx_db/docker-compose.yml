@@ -1,0 +1,31 @@
+services: 
+  influx_database_v2:
+    image: influxdb:2.7
+    container_name: fluid40-influx-v2
+    ports:
+      - "8031:8086"
+    volumes:
+      - fluid40-workshop-connectivity-influxv2-data:/var/lib/influxdb2
+    restart: always
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: fluid40secure!
+      DOCKER_INFLUXDB_INIT_ORG: fluid40-org
+      DOCKER_INFLUXDB_INIT_BUCKET: fluid40-bucket
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: wbEx!S!#4OHcN!5X
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8086/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    networks:
+      - fluid40-workshop-connectivity
+
+networks:
+  fluid40-workshop-connectivity:
+    external: true
+
+volumes:
+  fluid40-workshop-connectivity-influxv2-data:
