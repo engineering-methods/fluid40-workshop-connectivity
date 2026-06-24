@@ -98,7 +98,9 @@ Option "Custom API Token" wählen mit folgenden Optionen:
 **wichtig: API Token kopieren und zwischenspeichern!**
 
 ## Database Connector
-`docker load -i image.tar` aus dem database_connector Ordner ausführen
+1. release.tar.gz herunterladen: https://github.com/fluid40/ms-database-connector/releases/tag/v0.1.1
+2. entpacken (ggf. mehrfach) und image.tar in Ordner database_connector ablegen
+3. `docker load -i image.tar` aus dem database_connector Ordner ausführen
 
 **Wichtig: Influx DB muss über den Port verfügbar sein, da der Database Connector sonst beim Start einen Fehler wirft**
 
