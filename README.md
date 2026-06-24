@@ -1,4 +1,7 @@
-# AAS Infrastructure (based on BaSyx Java)
+# Hochfahren der Services
+Reihenfolge einhalten wird empfohlen
+
+## AAS Infrastructure (based on BaSyx Java)
 
 Vorarbeit: Docker Network erzeugen
 
@@ -14,7 +17,7 @@ Info: Keine vorgeschaltete Security Layer -> Keine Authentifizierung notwendig
 | SM Registry | http://smreg.basyx.localhost |
 | Discovery | http://discovery.basyx.localhost |
 
-# Asset Connector
+## Asset Connector
 
 Swagger-API: http://localhost:8000/docs
 
@@ -68,13 +71,13 @@ Response:
 }
 ```
 
-# Data Mapping Processor
+## Data Mapping Processor
 
 Swagger-API: http://localhost:3088/docs
 
 Game starten, damit die Daten generiert werden und der Asset-Connector sich verbindet
 
-# Influx V2 DB
+## Influx V2 DB
 
 Docker Volume erzeugen: `docker volume create fluid40-workshop-connectivity-influxv2-data` (sonst ist der Port nicht sichtbar und Influx auch nicht über localhost erreichbar)
 
@@ -84,7 +87,7 @@ Standard-Zugang aus compose.yml:
 DOCKER_INFLUXDB_INIT_USERNAME: admin
 DOCKER_INFLUXDB_INIT_PASSWORD: fluid40secure!
 
-## API-Token erzeugen 
+### API-Token erzeugen 
 Alternative: Admin-Token aus compose-File benutzen
 
 Name überlegen (nur für Lesbarkeit in Influx UI)
@@ -94,6 +97,24 @@ Option "Custom API Token" wählen mit folgenden Optionen:
 
 **wichtig: API Token kopieren und zwischenspeichern!**
 
-# Database Connector
+## Database Connector
 `docker load -i image.tar` aus dem database_connector Ordner ausführen
-- Influx DB muss über den Port verfügbar sein
+
+**Wichtig: Influx DB muss über den Port verfügbar sein, da der Database Connector sonst beim Start einen Fehler wirft**
+
+# Zusammenspiel
+
+Influx-Abfrage mit Alias-Mapping
+```flux
+from(bucket: "fluid40-bucket")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "play_4_in_a_row")
+  |> filter(fn: (r) => r["_field"] == "https://fluid40.de/ids/sm/1704_4135_2769_8983/submodel-elements/Emission.CurrentEmission")
+  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)
+  |> map(fn: (r) => ({
+     r with
+    _field:
+    if r["_field"] == "https://fluid40.de/ids/sm/1704_4135_2769_8983/submodel-elements/Emission.CurrentEmission" then "CurrentEmission"
+    else r["_field"]    
+    }))
+```
