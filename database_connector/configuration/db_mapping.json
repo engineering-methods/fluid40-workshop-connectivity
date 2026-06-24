@@ -1,0 +1,8 @@
+{
+    "play_4_in_a_row": {
+        "https://fluid40.de/ids/sm/1704_4135_2769_8983/submodel-elements/AxisPositions.Axis1Position": "field",
+        "https://fluid40.de/ids/sm/1704_4135_2769_8983/submodel-elements/AxisPositions.Axis2Position": "field",
+        "https://fluid40.de/ids/sm/1704_4135_2769_8983/submodel-elements/AxisPositions.Axis3Position": "field",
+        "https://fluid40.de/ids/sm/1704_4135_2769_8983/submodel-elements/Emission.CurrentEmission": "field"
+    }
+}

@@ -1,0 +1,23 @@
+services:
+  database_connector:
+    image: ms-database-connector:0.1.1-df88d85
+    container_name: database_connector
+    pull_policy: never
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "aasreg.basyx.localhost:host-gateway"
+      - "smreg.basyx.localhost:host-gateway"
+      - "aasenv.basyx.localhost:host-gateway"
+    ports:
+      - "3090:3090"
+    environment:
+      DBC_CONFIGURATION_FILE: ./configuration/service_config.json
+      INFLUXDB_V2_TOKEN: $INFLUXDB_V2_ADMIN_TOKEN
+    volumes:
+      - ./configuration:/app/configuration:ro
+    networks:
+      -  fluid40-workshop-connectivity
+
+networks:
+   fluid40-workshop-connectivity:
+    external: true

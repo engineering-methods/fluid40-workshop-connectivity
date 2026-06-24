@@ -93,3 +93,7 @@ Option "Custom API Token" wählen mit folgenden Optionen:
 - read für "all other resources"
 
 **wichtig: API Token kopieren und zwischenspeichern!**
+
+# Database Connector
+`docker load -i image.tar` aus dem database_connector Ordner ausführen
+- Influx DB muss über den Port verfügbar sein
