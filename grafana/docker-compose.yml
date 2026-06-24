@@ -1,0 +1,20 @@
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: fluid40-grafana
+    ports:
+      - "9000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: fluid40
+    volumes:
+      - fluid40-workshop-connectivity-influxv2-data:/var/lib/grafana
+      - ./provisioning:/etc/grafana/provisioning
+    networks:
+      -  fluid40-workshop-connectivity
+
+networks:
+   fluid40-workshop-connectivity:
+    external: true
+volumes:
+  fluid40-workshop-connectivity-influxv2-data:

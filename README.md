@@ -118,3 +118,20 @@ from(bucket: "fluid40-bucket")
     else r["_field"]    
     }))
 ```
+
+# Dashboard in Grafana
+
+Datenquelle hinzufügen:
+- http://fluid40-influx-v2:8086 (hier wird der Container-Name und der originale Port benötigt)
+- Auth: keine Option anhaken
+- InfluxDB Details
+  - Organization: fluid40-org
+  - Token: API Token oder Admin-Token nutzen
+  - Default Bucket: fluid40-bucket
+
+Neues Dashboard erstellen
+- Angelegte Datenquelle einstellen
+- Flux-Query eingeben
+- Query-Inspektor -> Apply
+
+
