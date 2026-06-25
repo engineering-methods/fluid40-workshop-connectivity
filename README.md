@@ -9,19 +9,26 @@ Vorarbeit: Docker Network erzeugen
 
 Info: Keine vorgeschaltete Security Layer -> Keine Authentifizierung notwendig
 
-| Service | URL |
-| -- | -- |
-| Web UI | http://aasgui.basyx.localhost |
-| AAS Env (Repositories) | http://aasenv.basyx.localhost |
-| AAS Registry | http://aasreg.basyx.localhost |
-| SM Registry | http://smreg.basyx.localhost |
-| Discovery | http://discovery.basyx.localhost |
+| Service | URL | Container-Adresse |
+| -- | -- | -- |
+| Web UI | http://aasgui.basyx.localhost | http://fluid40-aas-web-ui:3000 |
+| AAS Env (Repositories) | http://aasenv.basyx.localhost | http://fluid40-aas-server:8081 |
+| AAS Registry | http://aasreg.basyx.localhost | http://fluid40-aas-registry:8080 |
+| SM Registry | http://smreg.basyx.localhost | http://fluid40-sm-registry:8080 |
+| Discovery | http://discovery.basyx.localhost | http://fluid40-aas-discovery:8081 |
 
 ## Asset Connector
 
 Swagger-API: http://localhost:8000/docs
 
-`get-value`:
+Verbindung zu Asset Herstellen mit `add-config`:
+```json
+{
+  "Aid": "BaSyx Web UI -> AAS Editor Modus -> AID Sorting Machine Optionen -> Copy Submodel as JSON"
+}
+```
+
+Test Datenabfrage mit `get-value` (Beispiel JSON hier übernehmen):
 ```json
 {
   "Reference": {
@@ -52,7 +59,7 @@ Swagger-API: http://localhost:8000/docs
 }
 ```
 
-Response:
+Erwartete Antwort:
 ```json
 {
   "StatusCode": 200,
