@@ -76,12 +76,12 @@ services:
     environment:
       VIRTUAL_HOST: aasgui.basyx.localhost
       VIRTUAL_PORT: "3000"
-      AAS_REGISTRY_PATH: http://aasreg.basyx.localhost/shell-descriptors
-      SUBMODEL_REGISTRY_PATH: http://smreg.basyx.localhost/submodel-descriptors
-      AAS_REPO_PATH: http://aasenv.basyx.localhost/shells
-      SUBMODEL_REPO_PATH: http://aasenv.basyx.localhost/submodels
-      CD_REPO_PATH: http://aasenv.basyx.localhost/concept-descriptions
-      AAS_DISCOVERY_PATH: http://discovery.basyx.localhost/lookup/shells
+      AAS_REGISTRY_PATH: http://aasreg.basyx.localhost:8080/shell-descriptors
+      SUBMODEL_REGISTRY_PATH: http://smreg.basyx.localhost:8080/submodel-descriptors
+      AAS_REPO_PATH: http://aasenv.basyx.localhost:8080/shells
+      SUBMODEL_REPO_PATH: http://aasenv.basyx.localhost:8080/submodels
+      CD_REPO_PATH: http://aasenv.basyx.localhost:8080/concept-descriptions
+      AAS_DISCOVERY_PATH: http://discovery.basyx.localhost:8080/lookup/shells
       PRIMARY_COLOR: "#00A0C7"
       LOGO_LIGHT_PATH: fluid40_light.png
       LOGO_DARK_PATH: fluid40_dark.png
@@ -99,7 +99,7 @@ services:
     container_name: fluid40-nginx-proxy
     restart: always
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     environment:
