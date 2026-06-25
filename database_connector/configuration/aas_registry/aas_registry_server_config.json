@@ -1,6 +1,6 @@
 {
     "ServerConfiguration": {
-        "BaseUrl": "http://aasreg.basyx.localhost",
+        "BaseUrl": "ht",
         "TimeOut": 60,
         "ConnectionTimeOut": 60,
         "TrustEnv": false,

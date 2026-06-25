@@ -1,9 +1,8 @@
 {
     "ServerConfiguration": {
-        "BaseUrl": "",
+        "BaseUrl": "http://fluid40-asset-connector:8000/",
         "TimeOut": 60,
         "ConnectionTimeOut": 60,
-        "TrustEnv": false,
-        "EncodedIds": false
+        "TrustEnv": false
     }
 }
