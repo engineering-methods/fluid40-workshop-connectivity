@@ -20,6 +20,7 @@ Info: Keine vorgeschaltete Security Layer -> Keine Authentifizierung notwendig
 ## Asset Connector
 
 Swagger-API: http://localhost:8000/docs
+Container-Adresse: http://fluid40-asset-connector:8000
 
 Verbindung zu Asset Herstellen mit `add-config`:
 ```json
