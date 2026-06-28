@@ -107,7 +107,7 @@ Standard-Zugangsdaten aus compose.yml:
 Container-Name: http://fluid40-influx-v2:8086
 
 ### API-Token erzeugen 
-Alternative: Admin-Token aus compose-File benutzen
+**Alternative: Admin-Token aus compose-File benutzen**
 
 Name überlegen (nur für Lesbarkeit in Influx UI)
 Option "Custom API Token" wählen mit folgenden Optionen:
@@ -117,9 +117,12 @@ Option "Custom API Token" wählen mit folgenden Optionen:
 **Wichtig: API Token kopieren und zwischenspeichern!**
 
 ## 4. Database Connector
-1. release.tar.gz herunterladen: https://github.com/fluid40/ms-database-connector/releases/tag/v0.1.1
-2. entpacken (ggf. mehrfach) und image.tar in Ordner database_connector ablegen
-3. `docker load -i image.tar` aus dem database_connector Ordner ausführen
+
+1. release.tar.gz herunterladen und lokal speichern: https://github.com/fluid40/ms-database-connector/releases/tag/v0.1.1
+2. In Kommandozeile (Windows, wenn es im normalen Dateisystem gespeichert wurde!) in Ordner navigieren, in dem die .tar.gz abelegt wurde
+3. `tar -xzf release.tar.gz` -> Extrahiert die Datei image.tar
+4. Lokales Image mit Docker laden: `docker load -i image.tar`
+5. Image-Tag ist bereits im Docker-Compose fertig eingefügt (theoretisch hier das hinterlegte Image überprüfen & ggf. aktualisieren)
 
 **Wichtig: Influx DB muss über den Port verfügbar sein, da der Database Connector sonst beim Start einen Fehler wirft**
 
