@@ -3,11 +3,11 @@ services:
     image: ms-database-connector:0.1.1-df88d85
     container_name: database_connector
     pull_policy: never
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-      - "aasreg.basyx.localhost:host-gateway"
-      - "smreg.basyx.localhost:host-gateway"
-      - "aasenv.basyx.localhost:host-gateway"
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
+    #   - "aasreg.basyx.localhost:host-gateway"
+    #   - "smreg.basyx.localhost:host-gateway"
+    #   - "aasenv.basyx.localhost:host-gateway"
     ports:
       - "3090:3090"
     environment:

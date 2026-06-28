@@ -3,11 +3,11 @@ services:
   ms_data_mapping_processor:
     image: engineeringmethodsag/ms-data-mapping-processor:latest
     container_name: fluid40-data-mapping-processor
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-      - "aasreg.basyx.localhost:host-gateway"
-      - "smreg.basyx.localhost:host-gateway"
-      - "aasenv.basyx.localhost:host-gateway"
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
+    #   - "aasreg.basyx.localhost:host-gateway"
+    #   - "smreg.basyx.localhost:host-gateway"
+    #   - "aasenv.basyx.localhost:host-gateway"
     ports:
       - "3088:3088"
     environment:
