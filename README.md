@@ -26,6 +26,9 @@ Hinweis: Aufgrund des deaktivierten Proxies + lokalem Setup auf dem eigenen Comp
 
 - Swagger-API: http://localhost:8000/docs
 - Container-Adresse: http://fluid40-asset-connector:8000
+
+### Manuelle Nutzung
+**Optional zum selbst testen, die automatische Konfiguration wird über den Data Mapping Processor übernommen**
 - Keine Konfigurationsdatei wie bei den anderen Microservices erforderlich (hier läuft alles über die REST API)
 - Payload zur Konfiguration & Datenabfrage muss übereinstimmen ("Aid"/ "Reference"-Wrapper siehe Bsp. nicht vergessen)
 
